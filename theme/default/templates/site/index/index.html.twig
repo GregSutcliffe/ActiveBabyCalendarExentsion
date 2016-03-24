@@ -1,0 +1,100 @@
+{#
+ # @package Core
+ # @link http://ican.openacalendar.org/ OpenACalendar Open Source Software - Website
+ # @license http://ican.openacalendar.org/license.html 3-clause BSD
+ # @copyright (c) JMB Technology Limited, http://jmbtechnology.co.uk/
+ # @author James Baster <james@jarofgreen.co.uk>
+ #}
+{% extends 'site/page.html.twig' %}
+
+{% block pageTitle %}Welcome - {% endblock %} 
+
+{% block htmlHeader %}
+	<link rel="canonical" href="{{ config.getWebSiteDomainSecure(currentSite.slug) }}/" />
+	<link rel="alternate"  type="text/calendar" title="{{ currentSite.title | escape('html_attr') }}" href="/api1/events.ical" />
+	{% if not currentSite.isWebRobotsAllowed %}<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">{% endif %}
+{% endblock %}
+
+{% block breadcrumbs %}
+	{# no breadcrumbs on front page. Ppl know where they are. Apparently it confuses ppl #}
+{% endblock %}
+
+
+{% block content %}
+
+	<div id="innerPageWrapper">
+		<div id="innerPage">
+
+			<div class="innerPageLeft">
+			  <div class="abc-infobox">
+		            <p>This calendar depends on everyone adding events they know of in their area. 
+			      Know of an event we're missing? <a href='/event/new'>Please add it!</a>
+			      Need help with adding events? Go <a href='/addingevents'>here</a>!</p>
+			    </div>
+				{% if currentSite.descriptionText %}
+					<p>{{ currentSite.descriptionText | nl2br | linkify }}</p>
+				{% else %}
+					<p>Welcome to the calender for {{ currentSite.title  }}.</p>
+				{% endif %}
+			</div>
+
+			<div class="innerPageRight">
+			  <div class="abc-infobox">
+			    <h3>Current Alpha Status</h3>
+			    <ul>
+			      <li>This info box!</li>
+			      <li>Site title changed to ABC</li>
+			      <li>Banner is a nicer green gradient</li>
+			      <li>Icons for groups should be uploadable now (see the Hartbeeps and Buggy Walks examples)</li>
+			      <li>New User Guide in a box on the left, with links to help pages</li>
+			    </ul>
+			  </div>
+			  <div class="abc-infobox">
+			    <h3>Up next</h3>
+			    <ul>
+			      <li>More styling improvements</li>
+			      <li>Background image for the banner</li>
+                              <li>Fixing the banner on the calendar page</li>
+			      <li>Changing the colour on the calendar events</li>
+				<li>Get a real domain name</li>
+				<li>Enable proper backups</li>
+                            </ul>
+			  </div>
+			</div>
+
+			<div class="afterInnerPageContent"></div>
+
+			&nbsp;<hr>&nbsp;
+
+			<ul class="mainListEvents">
+				<li class="export">
+					<a href="/api1/events.ical" onclick="showExportSharePopup(); return false;">
+						{%  include '/site/common/actionExportShareLabel.html.twig' %}
+					</a>
+				</li>
+				{% for event in events %}
+					{% include '/site/common/mainListEvent.html.twig' with {'event':event, 'showCurrentUserOptions':true, 'showVenueAndArea':true}  %}
+				{% else %}
+					<li class="nodata">
+						There are no upcoming events.
+						{% if currentUserActions.has("org.openacalendar","eventNew") %}Why not <a href="/event/new">add one</a>?{% endif %}
+					</li>
+				{% endfor %}
+			</ul>
+
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block scriptsForState %}
+	<script type="text/javascript">var exportData = {}</script>
+{% endblock %}
+
+	
+{% block scripts %}
+	<script type="text/javascript" src="/theme/default/js/userAtEvents.site.js?v={{ config.assetsVersion }}"></script>
+{% endblock %}
+
+
+
