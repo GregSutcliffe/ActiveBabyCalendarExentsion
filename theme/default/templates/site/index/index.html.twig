@@ -7,7 +7,7 @@
  #}
 {% extends 'site/page.html.twig' %}
 
-{% block pageTitle %}Welcome - {% endblock %} 
+{% block pageTitle %}Welcome - {% endblock %}
 
 {% block htmlHeader %}
 	<link rel="canonical" href="{{ config.getWebSiteDomainSecure(currentSite.slug) }}/" />
@@ -26,15 +26,16 @@
 		<div id="innerPage">
 
 			<div class="innerPageLeft">
+        <img src="/theme/default/img/logo.large.png?v=null" alt="logo" class="logo-large">
 			  <div class="abc-infobox">
-		            <p>This calendar depends on everyone adding events they know of in their area. 
+		            <p>This calendar depends on everyone adding events they know of in their area.
 			      Know of an event we're missing? <a href='/event/new'>Please add it!</a>
 			      Need help with adding events? Go <a href='/addingevents'>here</a>!</p>
 			    </div>
 				{% if currentSite.descriptionText %}
 					<p>{{ currentSite.descriptionText | nl2br | linkify }}</p>
 				{% else %}
-					<p>Welcome to the calender for {{ currentSite.title  }}.</p>
+					<p>Welcome to the calendar for {{ currentSite.title  }}.</p>
 				{% endif %}
 			</div>
 
@@ -42,23 +43,20 @@
 			  <div class="abc-infobox">
 			    <h3>Current Alpha Status</h3>
 			    <ul>
-			      <li>This info box!</li>
-			      <li>Site title changed to ABC</li>
-			      <li>Banner is a nicer green gradient</li>
-			      <li>Icons for groups should be uploadable now (see the Hartbeeps and Buggy Walks examples)</li>
 			      <li>New User Guide in a box on the left, with links to help pages</li>
+            <li>Calendar page has lighter colours</li>
+            <li>Proper domain name!</li>
+            <li>Logo, large logo, and favicon images</li>
+            <li>Calendar link on the main toolbar</li>
 			    </ul>
 			  </div>
 			  <div class="abc-infobox">
 			    <h3>Up next</h3>
 			    <ul>
-			      <li>More styling improvements</li>
 			      <li>Background image for the banner</li>
-                              <li>Fixing the banner on the calendar page</li>
-			      <li>Changing the colour on the calendar events</li>
-				<li>Get a real domain name</li>
-				<li>Enable proper backups</li>
-                            </ul>
+            <li>Enable proper backups</li>
+            <li>Tag / location cloud on frontpage</li>
+          </ul>
 			  </div>
 			</div>
 
@@ -91,7 +89,7 @@
 	<script type="text/javascript">var exportData = {}</script>
 {% endblock %}
 
-	
+
 {% block scripts %}
 	<script type="text/javascript" src="/theme/default/js/userAtEvents.site.js?v={{ config.assetsVersion }}"></script>
 {% endblock %}
